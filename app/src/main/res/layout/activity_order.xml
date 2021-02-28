@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#faf5f1">
+
+    <TextView
+        android:id="@+id/txtChooseSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/choose_size"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="65dp"
+        android:entries="@array/size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtToppings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="97dp"
+        android:gravity="center"
+        android:text="@string/choose_toppings"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chkPepperoni"
+        android:layout_width="98dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="130dp"
+        android:text="@string/top_pepperoni"
+        android:textSize="14sp"
+        android:onClick="onCheckboxClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chkChicken"
+        android:layout_width="82dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/top_chicken"
+        android:onClick="onCheckboxClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkPepperoni" />
+
+    <CheckBox
+        android:id="@+id/chkMushrooms"
+        android:layout_width="110dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/top_mushrooms"
+        android:onClick="onCheckboxClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkChicken" />
+
+    <CheckBox
+        android:id="@+id/chkGreenPepper"
+        android:layout_width="120dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="130dp"
+        android:text="@string/top_green_pepper"
+        android:onClick="onCheckboxClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chkOlive"
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/top_olive"
+        android:onClick="onCheckboxClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkGreenPepper" />
+
+    <CheckBox
+        android:id="@+id/chkXtraCheese"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/top_extra_cheese"
+        android:onClick="onCheckboxClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkOlive" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:backgroundTint="#cc4147"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:contentDescription="@string/olive_topping"
+        app:layout_constraintEnd_toStartOf="@+id/chkOlive"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:srcCompat="@drawable/top_olive" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/mushroom_topping"
+        app:layout_constraintEnd_toStartOf="@+id/chkMushrooms"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:srcCompat="@drawable/top_mush" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/extra_cheese"
+        app:layout_constraintEnd_toStartOf="@+id/chkXtraCheese"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/top_cheese" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/chicken_topping"
+        app:layout_constraintEnd_toStartOf="@+id/chkChicken"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:srcCompat="@drawable/top_chicken" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:contentDescription="@string/pepperoni_topping"
+        app:layout_constraintEnd_toStartOf="@+id/chkPepperoni"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_pepperoni" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="137dp"
+        android:contentDescription="@string/green_pepper_topping"
+        app:layout_constraintEnd_toStartOf="@+id/chkGreenPepper"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_green_pepper" />
+</androidx.constraintlayout.widget.ConstraintLayout>
