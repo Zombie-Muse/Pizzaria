@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -17,18 +18,21 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     private StringBuilder sb = new StringBuilder();
     private ArrayList<String> toppings = new ArrayList<>();
     private Button btnNext;
-    Order mOrder = new Order();
+    private double toppingPrice, price;
+    Order mOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+        mOrder = new Order();
 
         pizzaSize = (Spinner) findViewById(R.id.spSize);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.size, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaSize.setAdapter(adapter);
         pizzaSize.setOnItemSelectedListener(this);
+
 
         for (String s : toppings) {
             sb.append(s);
@@ -71,4 +75,58 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    public void onCheckboxClick(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        while (checked) {
+            try {
+                switch (view.getId()) {
+                    case R.id.chkPepperoni:
+                        if (checked)
+                            toppingPrice = 1;
+                        price += toppingPrice;
+                        toppings.add("Pepperoni");
+                        break;
+                    case R.id.chkChicken:
+                        if (checked)
+                            toppingPrice = 1.25;
+                        price += toppingPrice;
+                        toppings.add("Chicken");
+                        break;
+                    case R.id.chkMushrooms:
+                        if (checked)
+                            toppingPrice = 0.75;
+                        price += toppingPrice;
+                        toppings.add("Mushrooms");
+                        break;
+                    case R.id.chkGreenPepper:
+                        if (checked)
+                            toppingPrice = 0.75;
+                        price += toppingPrice;
+                        toppings.add("Green Pepper");
+                        break;
+                    case R.id.chkOlive:
+                        if (checked)
+                            toppingPrice = 0.75;
+                        price += toppingPrice;
+                        toppings.add("Olives");
+                        break;
+                    case R.id.chkXtraCheese:
+                        if (checked)
+                            toppingPrice = 1.50;
+                        price += toppingPrice;
+                        toppings.add("Extra Cheese");
+                        break;
+                }
+                mOrder.setToppingPrice(price);
+//            StringBuilder sb = new StringBuilder();
+//            for (String s : toppings) {
+//                sb.append(s);
+//                sb.append("\n");
+//            }
+//            mOrder.setToppings(sb.toString());
+                break;
+            } catch (Exception e){
+            }
+        }}
 }
