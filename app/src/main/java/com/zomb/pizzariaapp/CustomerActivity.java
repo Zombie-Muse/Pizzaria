@@ -2,6 +2,7 @@ package com.zomb.pizzariaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,14 @@ public class CustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
+
+
+        Intent intent = getIntent();
+        String pSize = intent.getStringExtra(OrderActivity.EXTRA_SIZE);
+        String pToppings = intent.getStringExtra(OrderActivity.EXTRA_TOPPINGS);
+
+        mOrder.setPizzaSize(pSize);
+        mOrder.setToppings(pToppings);
 
         nameInput = (EditText) findViewById(R.id.etxtName);
         phoneInput = (EditText) findViewById(R.id.etxtPhone);

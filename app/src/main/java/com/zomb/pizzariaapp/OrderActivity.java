@@ -1,9 +1,11 @@
 package com.zomb.pizzariaapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,9 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 public class OrderActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    public static final String EXTRA_SIZE = "com.zomb.pizzariaapp.EXTRA_SIZE";
+    public static final String EXTRA_TOPPINGS = "com.zomb.pizzariaapp.EXTRA_TOPPINGS";
+    private String pSize, pToppings;
     private Spinner pizzaSize;
     private StringBuilder sb = new StringBuilder();
     private ArrayList<String> toppings = new ArrayList<>();
@@ -25,20 +30,17 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-        mOrder = new Order();
+        if (savedInstanceState != null) {
+            pSize = savedInstanceState.getString(EXTRA_SIZE);
+            pToppings = savedInstanceState.getString(EXTRA_TOPPINGS);
 
+        }
+        mOrder = new Order();
         pizzaSize = (Spinner) findViewById(R.id.spSize);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.size, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaSize.setAdapter(adapter);
         pizzaSize.setOnItemSelectedListener(this);
-
-
-        for (String s : toppings) {
-            sb.append(s);
-            sb.append("\n");
-        }
-        mOrder.setToppings(sb.toString());
 
         btnNext = (Button) findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +51,20 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         });
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString(EXTRA_SIZE, pSize);
+        outState.putString(EXTRA_TOPPINGS, pToppings);
+    }
+
     public void onNextClick() {
+        String pToppings = mOrder.getToppings();
+        String pSize = mOrder.getPizzaSize();
+
         Intent intent = new Intent(this, CustomerActivity.class);
+        intent.putExtra(EXTRA_SIZE, pSize);
+        intent.putExtra(EXTRA_TOPPINGS, pToppings);
         startActivity(intent);
     }
 
@@ -119,14 +133,14 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                         break;
                 }
                 mOrder.setToppingPrice(price);
-//            StringBuilder sb = new StringBuilder();
-//            for (String s : toppings) {
-//                sb.append(s);
-//                sb.append("\n");
-//            }
-//            mOrder.setToppings(sb.toString());
                 break;
             } catch (Exception e){
             }
-        }}
+        }
+        for (String s : toppings) {
+            sb.append(s);
+            sb.append("\n");
+        }
+        mOrder.setToppings(sb.toString());
+    }
 }
