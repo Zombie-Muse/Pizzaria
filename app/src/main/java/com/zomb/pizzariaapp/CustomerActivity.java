@@ -1,9 +1,11 @@
 package com.zomb.pizzariaapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +14,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class CustomerActivity extends AppCompatActivity {
+    public static final String EXTRA_NAME = "com.zomb.pizzariaapp.EXTRA_NAME";
+    public static final String EXTRA_PHONE = "com.zomb.pizzariaapp.EXTRA_PHONE";
+    public static final String EXTRA_ADDRESS = "com.zomb.pizzariaapp.EXTRA_ADDRESS";
+    public static final String EXTRA_EMAIL = "com.zomb.pizzariaapp.EXTRA_EMAIL";
     private EditText nameInput, phoneInput, addressInput, emailInput;
     private TextView receiptInfo, receiptTotal;
-    private String name, phone, address, email;
+    private String name, phone, address, email, pSize, pToppings;
     private double total;
     private ArrayList<String> toppings;
     private Order mOrder;
@@ -23,14 +29,15 @@ public class CustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
+        if (savedInstanceState != null) {
+            pSize = savedInstanceState.getString(OrderActivity.EXTRA_SIZE);
+            pToppings = savedInstanceState.getString(OrderActivity.EXTRA_TOPPINGS);
+            name = savedInstanceState.getString(EXTRA_NAME);
+            phone = savedInstanceState.getString(EXTRA_PHONE);
+            address = savedInstanceState.getString(EXTRA_ADDRESS);
+            email = savedInstanceState.getString(EXTRA_EMAIL);
 
-
-        Intent intent = getIntent();
-        String pSize = intent.getStringExtra(OrderActivity.EXTRA_SIZE);
-        String pToppings = intent.getStringExtra(OrderActivity.EXTRA_TOPPINGS);
-
-        mOrder.setPizzaSize(pSize);
-        mOrder.setToppings(pToppings);
+        }
 
         nameInput = (EditText) findViewById(R.id.etxtName);
         phoneInput = (EditText) findViewById(R.id.etxtPhone);
@@ -54,6 +61,15 @@ public class CustomerActivity extends AppCompatActivity {
                 submitOrder();
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString(EXTRA_NAME, name);
+        outState.putString(EXTRA_PHONE, phone);
+        outState.putString(EXTRA_ADDRESS, address);
+        outState.putString(EXTRA_EMAIL, email);
     }
 
     public void submitOrder() {

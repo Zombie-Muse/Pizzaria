@@ -59,8 +59,6 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void onNextClick() {
-        String pToppings = mOrder.getToppings();
-        String pSize = mOrder.getPizzaSize();
 
         Intent intent = new Intent(this, CustomerActivity.class);
         intent.putExtra(EXTRA_SIZE, pSize);
