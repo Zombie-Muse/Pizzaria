@@ -114,6 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="350dp"
         android:backgroundTint="#cc4147"
+        android:onClick="onNextClick"
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
