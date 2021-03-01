@@ -128,14 +128,15 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                         break;
                 }
                 mOrder.setToppingPrice(price);
+                mOrder.setToppings(toppings.toString());
                 break;
             } catch (Exception e){
             }
         }
-        for (String s : toppings) {
-            sb.append(s);
-            sb.append("\n");
-        }
-        mOrder.setToppings(sb.toString());
+//        for (String s : toppings) {
+//            sb.append(s);
+//            sb.append("\n");
+//        }
+//        mOrder.setToppings(sb.toString());
     }
 }
