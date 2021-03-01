@@ -42,25 +42,25 @@ public class CustomerActivity extends AppCompatActivity {
         receiptTotal = findViewById(R.id.txtOrderTotal);
 
         btnSubmit = findViewById(R.id.btnSubmit);
+
+        if (savedInstanceState != null) {
+
+            submitOrder(btnSubmit);
+            nameInput.setText(savedInstanceState.getString(KEY_NAME));
+            phoneInput.setText(savedInstanceState.getString(KEY_PHONE));
+            addressInput.setText(savedInstanceState.getString(KEY_ADDRESS));
+            emailInput.setText(savedInstanceState.getString(KEY_EMAIL));
+        }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-//        outState.putString(OrderActivity.KEY_SIZE, pSize);
-//        outState.putDouble(OrderActivity.KEY_SIZE_PRICE, pSizePrice);
-//        outState.putString(OrderActivity.KEY_TOPPINGS, pToppings);
-//        outState.putDouble(OrderActivity.KEY_TOPPING_PRICE, pTopPrice);
-
-//        outState.putString(KEY_NAME, String.valueOf(nameInput.getText()));
-        outState.putString(KEY_NAME, nameInput.getText().toString());
-        outState.putString(KEY_ADDRESS, addressInput.getText().toString());
-        outState.putString(KEY_PHONE, phoneInput.getText().toString());
-        outState.putString(KEY_EMAIL, emailInput.getText().toString());
-//        outState.putString(KEY_PHONE, String.valueOf(phoneInput.getText()));
-//        outState.putString(KEY_ADDRESS, String.valueOf(addressInput.getText()));
-//        outState.putString(KEY_EMAIL, String.valueOf(emailInput.getText()));
+        outState.putString(KEY_NAME, String.valueOf(nameInput.getText()));
+        outState.putString(KEY_PHONE, String.valueOf(phoneInput.getText()));
+        outState.putString(KEY_ADDRESS, String.valueOf(addressInput.getText()));
+        outState.putString(KEY_EMAIL, String.valueOf(emailInput.getText()));
     }
 
     public void submitOrder(View view) {
@@ -78,7 +78,6 @@ public class CustomerActivity extends AppCompatActivity {
         email = emailInput.getText().toString();
         mOrder.setEmail(email);
 
-//        view.setVisibility(View.VISIBLE);
         btnSubmit.setVisibility(View.GONE);
         nameInput.setVisibility(View.GONE);
         phoneInput.setVisibility(View.GONE);
@@ -87,9 +86,10 @@ public class CustomerActivity extends AppCompatActivity {
         receiptInfo.setVisibility(View.VISIBLE);
         receiptTotal.setVisibility(View.VISIBLE);
 
-            //Create a string for the text view including the name, address, phone, email, pizza size, and list of toppings
-            receiptInfo = (TextView) findViewById(R.id.txtOrderInfo);
-            receiptInfo.setText(mOrder.setTextInfo(mOrder.getName(), mOrder.getAddress(), mOrder.getPhone(), mOrder.getEmail(), mOrder.getPizzaSize(), mOrder.getToppings()));
+        //Create a string for the text view including the name, address, phone, email, pizza size, and list of toppings
+        receiptInfo = (TextView) findViewById(R.id.txtOrderInfo);
+        receiptInfo.setText(mOrder.setTextInfo(mOrder.getName(), mOrder.getAddress(), mOrder.getPhone(), mOrder.getEmail(), mOrder.getPizzaSize(), mOrder.getToppings()));
+
         //Calculates the total price and display in textView under the customer info
         receiptTotal = findViewById(R.id.txtOrderTotal);
         total = mOrder.calculateTotal(mOrder.getSizePrice(), mOrder.getToppingPrice());     //Made a "total" variable to store the double. getSizePrice and getToppingPrice are set as arguments for the calculate method
