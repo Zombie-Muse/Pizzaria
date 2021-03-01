@@ -20,12 +20,11 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     public static final String KEY_SIZE_PRICE = "com.zomb.pizzariaapp.KEY_SIZE_PRICE";
     public static final String KEY_TOPPINGS = "com.zomb.pizzariaapp.KEY_TOPPINGS";
     public static final String KEY_TOPPING_PRICE = "com.zomb.pizzariaapp.KEY_TOPPING_PRICE";
-    private String pSize, pToppings;
     private Spinner pizzaSize;
     private StringBuilder sb = new StringBuilder();
     private ArrayList<String> toppings = new ArrayList<>();
     private Button btnNext;
-    private double pTopPrice, pSizePrice, toppingPrice, price;
+    private double toppingPrice, price;
     Order mOrder = new Order();
 
     @Override
@@ -33,54 +32,28 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         if (savedInstanceState != null) {
-            pSize = savedInstanceState.getString(KEY_SIZE);
-            pToppings = savedInstanceState.getString(KEY_TOPPINGS);
-            pSizePrice = savedInstanceState.getDouble(KEY_SIZE_PRICE);
-            pTopPrice = savedInstanceState.getDouble(KEY_TOPPING_PRICE);
-            mOrder.setPizzaSize(pSize);
-            mOrder.setToppings(pToppings);
-            mOrder.setSizePrice(pSizePrice);
-            mOrder.setToppingPrice(pTopPrice);
+            mOrder.setToppings(savedInstanceState.getString(KEY_TOPPINGS));
+            mOrder.setToppingPrice(savedInstanceState.getDouble(KEY_TOPPING_PRICE));
+            mOrder.setPizzaSize(savedInstanceState.getString(KEY_SIZE));
+            mOrder.setSizePrice(savedInstanceState.getDouble(KEY_SIZE_PRICE));
         }
-
-//        if (savedInstanceState != null) {
-//            pSize = savedInstanceState.getString(KEY_SIZE);
-//            pSizePrice = savedInstanceState.getDouble(KEY_SIZE_PRICE);
-//            pToppings = savedInstanceState.getString(KEY_TOPPINGS);
-//            pTopPrice = savedInstanceState.getDouble(KEY_TOPPING_PRICE);
-//
-//        }
-//        mOrder = new Order();
-        pizzaSize = (Spinner) findViewById(R.id.spSize);
+        pizzaSize = findViewById(R.id.spSize);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.size, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaSize.setAdapter(adapter);
         pizzaSize.setOnItemSelectedListener(this);
-//
-//        btnNext = (Button) findViewById(R.id.btnNext);
-//        btnNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onNextClick();
-//            }
-//        });
+
+        btnNext = findViewById(R.id.btnNext);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(KEY_SIZE, pSize);
-        outState.putString(KEY_TOPPINGS, pToppings);
-        outState.putDouble(KEY_TOPPING_PRICE, pTopPrice);
-        outState.putDouble(KEY_SIZE_PRICE, pSizePrice);
-//    public void onNextClick() {
-//
-//        Intent intent = new Intent(this, CustomerActivity.class);
-//        intent.putExtra(KEY_SIZE, pSize);
-//        intent.putExtra(KEY_TOPPINGS, pToppings);
-//        intent.putExtra(KEY_TOPPING_PRICE, pTopPrice);
-//        startActivity(intent);
+        outState.putString(KEY_SIZE, mOrder.getPizzaSize());
+        outState.putString(KEY_TOPPINGS, mOrder.getToppings());
+        outState.putDouble(KEY_TOPPING_PRICE, mOrder.getToppingPrice());
+        outState.putDouble(KEY_SIZE_PRICE, mOrder.getSizePrice());
     }
 
     public void onNextClick(View view) {

@@ -95,8 +95,8 @@ public class Order {
 
     public String setTextInfo(String name, String address, String phone, String email, String pSize, String pToppings) {
         return "Order: \n" +
-                name + ", " + address + ", " + phone + "\n" +
-                email + "\n" +
+                name + ", " + address + ", " + email + "\n" +
+                phone + "\n" +
                 pSize + ", \n" +
                 pToppings.replace(",", "\n");  //(?:[|,|])
     }
