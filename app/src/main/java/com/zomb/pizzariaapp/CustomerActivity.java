@@ -21,22 +21,30 @@ public class CustomerActivity extends AppCompatActivity {
     private EditText nameInput, phoneInput, addressInput, emailInput;
     private TextView receiptInfo, receiptTotal;
     private String name, phone, address, email, pSize, pToppings;
-    private double total;
+    private double total, pTopPrice, pSizePrice;
     private ArrayList<String> toppings;
     private Order mOrder;
     private Button btnSubmit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer);
+//        setContentView(R.layout.activity_customer);
         if (savedInstanceState != null) {
             pSize = savedInstanceState.getString(OrderActivity.EXTRA_SIZE);
             pToppings = savedInstanceState.getString(OrderActivity.EXTRA_TOPPINGS);
+            pTopPrice = savedInstanceState.getDouble(OrderActivity.EXTRA_TOPPING_PRICE);
+            pSizePrice = savedInstanceState.getDouble(OrderActivity.EXTRA_SIZE_PRICE);
             name = savedInstanceState.getString(EXTRA_NAME);
             phone = savedInstanceState.getString(EXTRA_PHONE);
             address = savedInstanceState.getString(EXTRA_ADDRESS);
             email = savedInstanceState.getString(EXTRA_EMAIL);
 
+        } else {
+            setContentView(R.layout.activity_customer);
+            nameInput = (EditText) findViewById(R.id.etxtName);
+            phoneInput = (EditText) findViewById(R.id.etxtPhone);
+            addressInput = (EditText) findViewById(R.id.etxtAddress);
+            emailInput = (EditText) findViewById(R.id.etxtEmail);
         }
 
         nameInput = (EditText) findViewById(R.id.etxtName);
@@ -66,6 +74,11 @@ public class CustomerActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString(OrderActivity.EXTRA_SIZE, pSize);
+        outState.putDouble(OrderActivity.EXTRA_SIZE_PRICE, pSizePrice);
+        outState.putString(OrderActivity.EXTRA_TOPPINGS, pToppings);
+        outState.putDouble(OrderActivity.EXTRA_TOPPING_PRICE, pTopPrice);
+
         outState.putString(EXTRA_NAME, name);
         outState.putString(EXTRA_PHONE, phone);
         outState.putString(EXTRA_ADDRESS, address);
@@ -74,6 +87,16 @@ public class CustomerActivity extends AppCompatActivity {
 
     public void submitOrder() {
         //set visibility on customer form to GONE
+        Intent intent = getIntent();
+        pSize = intent.getStringExtra(OrderActivity.EXTRA_SIZE);
+        pToppings = intent.getStringExtra(OrderActivity.EXTRA_TOPPINGS);
+        pTopPrice = intent.getDoubleExtra(OrderActivity.EXTRA_TOPPING_PRICE, 0);
+        pSizePrice = intent.getDoubleExtra(OrderActivity.EXTRA_SIZE_PRICE, 0);
+        name = intent.getStringExtra(EXTRA_NAME);
+        phone = intent.getStringExtra(EXTRA_PHONE);
+        address = intent.getStringExtra(EXTRA_ADDRESS);
+        email = intent.getStringExtra(EXTRA_EMAIL);
+
         btnSubmit.setVisibility(View.GONE);
         nameInput.setVisibility(View.GONE);
         phoneInput.setVisibility(View.GONE);

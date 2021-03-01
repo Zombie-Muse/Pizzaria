@@ -18,12 +18,14 @@ import java.util.ArrayList;
 public class OrderActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_SIZE = "com.zomb.pizzariaapp.EXTRA_SIZE";
     public static final String EXTRA_TOPPINGS = "com.zomb.pizzariaapp.EXTRA_TOPPINGS";
+    public static final String EXTRA_TOPPING_PRICE = "com.zomb.pizzariaapp.EXTRA_TOPPING_PRICE";
+    public static final String EXTRA_SIZE_PRICE = "com.zomb.pizzariaapp.EXTRA_SIZE_PRICE";
     private String pSize, pToppings;
     private Spinner pizzaSize;
     private StringBuilder sb = new StringBuilder();
     private ArrayList<String> toppings = new ArrayList<>();
     private Button btnNext;
-    private double toppingPrice, price;
+    private double pTopPrice, pSizePrice, toppingPrice, price;
     Order mOrder;
 
     @Override
@@ -32,7 +34,9 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_order);
         if (savedInstanceState != null) {
             pSize = savedInstanceState.getString(EXTRA_SIZE);
+            pSizePrice = savedInstanceState.getDouble(EXTRA_SIZE_PRICE);
             pToppings = savedInstanceState.getString(EXTRA_TOPPINGS);
+            pTopPrice = savedInstanceState.getDouble(EXTRA_TOPPING_PRICE);
 
         }
         mOrder = new Order();
@@ -56,6 +60,8 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putString(EXTRA_SIZE, pSize);
         outState.putString(EXTRA_TOPPINGS, pToppings);
+        outState.putDouble(EXTRA_TOPPING_PRICE, pTopPrice);
+        outState.putDouble(EXTRA_SIZE_PRICE, pSizePrice);
     }
 
     public void onNextClick() {
@@ -63,6 +69,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         Intent intent = new Intent(this, CustomerActivity.class);
         intent.putExtra(EXTRA_SIZE, pSize);
         intent.putExtra(EXTRA_TOPPINGS, pToppings);
+        intent.putExtra(EXTRA_TOPPING_PRICE, pTopPrice);
         startActivity(intent);
     }
 
