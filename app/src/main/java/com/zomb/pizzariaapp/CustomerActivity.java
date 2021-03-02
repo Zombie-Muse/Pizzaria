@@ -12,9 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CustomerActivity extends AppCompatActivity {
+    public static final String KEY_CLICKED = "com.zomb.pizzariaapp.KEY_CLICKED";
     public static final String KEY_NAME = "com.zomb.pizzariaapp.KEY_NAME";
     public static final String KEY_PHONE = "com.zomb.pizzariaapp.KEY_PHONE";
     public static final String KEY_ADDRESS = "com.zomb.pizzariaapp.KEY_ADDRESS";
@@ -23,6 +25,7 @@ public class CustomerActivity extends AppCompatActivity {
     private TextView receiptInfo, receiptTotal;
     String name, phone, address, email;
     double total;
+    boolean clicked = false;
     Order mOrder;
     Button btnSubmit;
 
@@ -44,12 +47,14 @@ public class CustomerActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
 
         if (savedInstanceState != null) {
-
-            submitOrder(btnSubmit);
-            nameInput.setText(savedInstanceState.getString(KEY_NAME));
-            phoneInput.setText(savedInstanceState.getString(KEY_PHONE));
-            addressInput.setText(savedInstanceState.getString(KEY_ADDRESS));
-            emailInput.setText(savedInstanceState.getString(KEY_EMAIL));
+            clicked = savedInstanceState.getBoolean(KEY_CLICKED);
+            if (clicked) {
+                submitOrder(btnSubmit);
+                nameInput.setText(savedInstanceState.getString(KEY_NAME));
+                phoneInput.setText(savedInstanceState.getString(KEY_PHONE));
+                addressInput.setText(savedInstanceState.getString(KEY_ADDRESS));
+                emailInput.setText(savedInstanceState.getString(KEY_EMAIL));
+            }
         }
     }
 
@@ -61,6 +66,11 @@ public class CustomerActivity extends AppCompatActivity {
         outState.putString(KEY_PHONE, String.valueOf(phoneInput.getText()));
         outState.putString(KEY_ADDRESS, String.valueOf(addressInput.getText()));
         outState.putString(KEY_EMAIL, String.valueOf(emailInput.getText()));
+        if (btnSubmit.getVisibility() == View.VISIBLE) {
+            outState.putBoolean(KEY_CLICKED, false);
+        } else {
+            outState.putBoolean(KEY_CLICKED, true);
+        }
     }
 
     public void submitOrder(View view) {
@@ -78,11 +88,14 @@ public class CustomerActivity extends AppCompatActivity {
         email = emailInput.getText().toString();
         mOrder.setEmail(email);
 
+        // Sets visibility for form and button to GONE
         btnSubmit.setVisibility(View.GONE);
         nameInput.setVisibility(View.GONE);
         phoneInput.setVisibility(View.GONE);
         addressInput.setVisibility(View.GONE);
         emailInput.setVisibility(View.GONE);
+
+        // Sets visibility of textViews to VISIBLE
         receiptInfo.setVisibility(View.VISIBLE);
         receiptTotal.setVisibility(View.VISIBLE);
 
@@ -94,6 +107,6 @@ public class CustomerActivity extends AppCompatActivity {
         receiptTotal = findViewById(R.id.txtOrderTotal);
         total = mOrder.calculateTotal(mOrder.getSizePrice(), mOrder.getToppingPrice());     //Made a "total" variable to store the double. getSizePrice and getToppingPrice are set as arguments for the calculate method
         mOrder.setTotalPrice(total);                        //sets total to the total price
-        receiptTotal.setText(getString(R.string.total) + mOrder.getTotalPrice());     //creates string to display the total price
+        receiptTotal.setText(getString(R.string.total) + " " +DecimalFormat.getCurrencyInstance().format(mOrder.getTotalPrice()));     //creates string to display the total price with currency notation
     }
 }

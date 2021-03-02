@@ -8,7 +8,6 @@ public class Order {
     private double toppingPrice = 0;
     private double totalPrice = 0;
     private String pizzaSize, toppings;
-    //    private final double SALES_TAX = 0.1;
     private String name, phone, address, email;
 
 

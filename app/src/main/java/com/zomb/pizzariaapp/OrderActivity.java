@@ -37,6 +37,8 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             mOrder.setPizzaSize(savedInstanceState.getString(KEY_SIZE));
             mOrder.setSizePrice(savedInstanceState.getDouble(KEY_SIZE_PRICE));
         }
+
+        // Spinner initialization
         pizzaSize = findViewById(R.id.spSize);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.size, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,6 +70,8 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        // Sets the selected size and assigns the price
         String size = parent.getItemAtPosition(position).toString();
         mOrder.setPizzaSize(size);
         if (size.equals("Small - $8")) {
@@ -86,6 +90,9 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onNothingSelected(AdapterView<?> parent) { }
 
     public void onCheckboxClick(View view) {
+
+        // Creates an array of toppings and sets price for each one. It keeps a running total
+        // and sets the total to the over all topping price
         boolean checked = ((CheckBox) view).isChecked();
         while (checked) {
             try {
