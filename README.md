@@ -1,13 +1,11 @@
 # Pizzaria
 CIS4280 Programming Assignment 1
 
-<img src="PizzariaScreenshots/TitleScreen.png" width="50%" height="50%">
-
----
+## About the App
 This was a project towards the beginning of my Mobile Application Programming class at Cal Poly Pomona. We used Android Studio and coded in Java. It's a simple app that allows the user to choose the pizza size via a spinner and choose toppings via checkboxes.
 
-|<img src="PizzariaScreenshots/Choose_Size.png">|<img src="PizzariaScreenshots/Choose_Toppings.png">|
-| ----- | ----- |
+|<img src="PizzariaScreenshots/TitleScreen.png">|<img src="PizzariaScreenshots/Choose_Size.png">|<img src="PizzariaScreenshots/Choose_Toppings.png">|
+| ----- | ----- | ----- |
 
 
 ---
