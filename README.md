@@ -13,7 +13,7 @@ This was a project towards the beginning of my Mobile Application Programming cl
 ---
 The user is then taken to another screen where they can input their information (name, address, phone, email) and click submit. A receipt is then displayed on the screen with user info and order total. 
 
-|<img src="PizzariaScreenshots/Choose_Size.png">|<img src="PizzariaScreenshots/Choose_Toppings.png">|
+|<img src="PizzariaScreenshots/Enter_Info.png">|<img src="PizzariaScreenshots/Receipt.png">|
 | ----- | ----- |
 
 
